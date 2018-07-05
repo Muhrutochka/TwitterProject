@@ -12,9 +12,10 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 
 import os
 
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
+PROJECT_ROOT = os.path.normpath(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
@@ -33,11 +34,17 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
+    'django.contrib.sites',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'apptwitter.apps.ApptwitterConfig',
+    # 'apptwitter.apps.ApptwitterConfig',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'bootstrap4',
+    'apptwitter',
 ]
 
 MIDDLEWARE = [
@@ -55,7 +62,7 @@ ROOT_URLCONF = 'TwitterProject.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': ['./templates', os.path.join(BASE_DIR, 'templates', )],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -76,11 +83,13 @@ WSGI_APPLICATION = 'TwitterProject.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+         'NAME': 'projecttwitter',
+         'USER': 'user', 'PASSWORD': '1qazXSW@',
+         'HOST': 'localhost',
+         'PORT': '',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
@@ -119,3 +128,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+AUTHENTICATION_BACKENDS = (
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
+)
+
+SITE_ID = 1
