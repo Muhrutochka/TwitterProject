@@ -33,6 +33,24 @@
             {% endfor %}
               </tbody>
             </table>
+            <p>
+            <div class="pagination">
+                <span class="step-links">
+                    {% if context_value.has_previous %}
+                        <a href="?page=1">&laquo; first</a>
+                        <a href="?page={{ context_value.previous_page_number }}">previous</a>
+                    {% endif %}
+
+                    <span class="current">
+                        Page {{ context_value.number }} of {{ context_value.paginator.num_pages }}.
+                    </span>
+
+                    {% if context_value.has_next %}
+                        <a href="?page={{ context_value.next_page_number }}">next</a>
+                        <a href="?page={{ context_value.paginator.num_pages }}">last &raquo;</a>
+                    {% endif %}
+                </span>
+            </div>
         {% endif %}
 </body>
 </html>

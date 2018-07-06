@@ -26,6 +26,6 @@ urlpatterns = [
     path('auth', TemplateView.as_view(template_name='user/auth.html')),
     # re_path(r'^$', TemplateView.as_view(template_name='base.html'), name='home'),
     # re_path(r'^$', TemplateView.as_view(template_name='plain/example/index.html'), name='home'),
-    # re_path(r'^accounts/profile/$', TemplateView.as_view(template_name='plain/example/profile.html')),
+    re_path(r'^accounts/profile/$', TemplateView.as_view(template_name='user/profile.html')),
 
 ]
