@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+    {% if user.id == user_id %}
+        <body>
+            <form action=".." method="POST"> {% csrf_token %}
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1"> </label>
+                    <textarea class="form-control" id="Textarea1" name="Textarea1" maxlength="250" rows="3" required></textarea>
+                </div>
+                <div class="form-group">
+                    <input type="submit"class="btn btn-primary" name="save" value="Сохранить">
+                    <input type="submit"class="btn btn-primary" value="Отменить">
+                </div>
+            </form>
+        </body>
+    {% endif %}
+    {% endif %}
+{% endblock %}
+
+{% block Messages%}
+<link rel="stylesheet" type="text/css" href="/static/admin/css/base.css" />
+<link rel="stylesheet" type="text/css" href="/static/admin/css/dashboard.css" />
+        {% if context_value %}
+             <table class="table-striped">
+{#              <thead>#}
+{#                <tr class="d-flex">#}
+{#                  <th class="col-5"></th>#}
+{#                </tr>#}
+{#              </thead>#}
+              <tbody>
+            {% for e in context_value %}
+                <tr class="d-flex">
+                  <td class="col-sm-8">  {{ e.text }} </td>
+                  <td class="col-sm-1"><a href="" name="change" class="changelink">Change</a></td>
+                  <td class="col-sm-1"> {{ userid }}</td>
+                </tr>
+            {% endfor %}
+              </tbody>
+            </table>
+            <p>
+            <div class="pagination">
+                <span class="step-links">
+                    {% if context_value.has_previous %}
+                        <a href="?page=1">&laquo; first</a>
+                        <a href="?page={{ context_value.previous_page_number }}">previous</a>
+                    {% endif %}
+
+                    <span class="current">
+                        Page {{ context_value.number }} of {{ context_value.paginator.num_pages }}.
+                    </span>
+
+                    {% if context_value.has_next %}
+                        <a href="?page={{ context_value.next_page_number }}">next</a>
+                        <a href="?page={{ context_value.paginator.num_pages }}">last &raquo;</a>
+                    {% endif %}
+                </span>
+            </div>
+        {% endif %}
+</body>
+
+{% endblock %}
