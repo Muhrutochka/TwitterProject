@@ -4,7 +4,7 @@
     {% if user.is_authenticated %}
     {% if user.id == user_id %}
         <body>
-            <form action=".." method="POST"> {% csrf_token %}
+             <form action=".." method="POST"> {% csrf_token %}
                 <div class="form-group">
                     <label for="exampleFormControlTextarea1"> </label>
                     <textarea class="form-control" id="Textarea1" name="Textarea1" maxlength="250" rows="3" required></textarea>

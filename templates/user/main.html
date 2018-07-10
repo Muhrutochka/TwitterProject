@@ -2,11 +2,20 @@
 
 {% block content %}
     {% if user.is_authenticated %}
+           <div class="alert alert-danger" role="alert">
+                {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
     <body>
         <form action=".." method="POST"> {% csrf_token %}
             <div class="form-group">
                 <label for="exampleFormControlTextarea1">Text</label>
-                <textarea class="form-control" id="Textarea1" name="Textarea1" maxlength="250" rows="3" required></textarea>
+                <textarea class="form-control" id="Textarea1" name="Textarea1" rows="3" required></textarea>
             </div>
             <div class="form-group">
                 <input type="submit"class="btn btn-primary" value="Добавить">
