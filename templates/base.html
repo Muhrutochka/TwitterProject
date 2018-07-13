@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    {% load staticfiles %}
+
+    {# Load the tag library #}
+{% load bootstrap4 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
+
+<body>
+{#    <div>#}
+{#      <strong>Аутентификация:</strong>#}
+{#      <ul>#}
+{#	{% if user.is_authenticated %}#}
+{#	<li><a href="{% url 'account_email' %}">Change E-mail</a></li>#}
+{#	<li><a href="{% url 'account_logout' %}">Выйти</a></li>#}
+{#	{% else %}#}
+{#	<li><a href="{% url 'account_login' %}">Войти</a></li>#}
+{#	<li><a href="{% url 'account_signup' %}">Зарегистрироваться</a></li>#}
+{#	{% endif %}#}
+{#      </ul>#}
+{#    </div>#}
+{#    <div id="content">#}
+{#        {% block content %}{% endblock %}#}
+{#    </div>#}
+{#<title>{% block title %}Super puper site{% endblock %}</title>#}
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">{{ user }}</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Navigation
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="/">Главная</a>
+              <a class="dropdown-item" href="auth">Войти</a>
+              {% if user.is_authenticated %}
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="user/{{ user.id }}">Переписка</a>
+              {% endif %}
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+</header>
+    <main role="main" class="container">
+        <div id="content">
+            {% block content %}{% endblock %}
+            {% block Messages%}{% endblock %}
+        </div>
+    </main>
+
+<footer class="page-footer font-small blue">
+
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3">© 2018 Copyright:
+    <a href=""> Прелестно</a>
+  </div>
+  <!-- Copyright -->
+
+</footer>
+</body>
+</html>
+
