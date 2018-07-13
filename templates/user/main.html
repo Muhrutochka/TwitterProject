@@ -1,16 +1,17 @@
 {% extends "base.html" %}
-
 {% block content %}
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
     {% if user.is_authenticated %}
-           <div class="alert alert-danger" role="alert">
-                {% if messages %}
+         {% if messages %}
+            <div class="alert alert-danger" role="alert">
+
                 <ul class="messages">
                     {% for message in messages %}
                     <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
                     {% endfor %}
                 </ul>
-                {% endif %}
             </div>
+         {% endif %}
     <body>
         <form action=".." method="POST"> {% csrf_token %}
             <div class="form-group">
@@ -18,7 +19,7 @@
                 <textarea class="form-control" id="Textarea1" name="Textarea1" rows="3" required></textarea>
             </div>
             <div class="form-group">
-                <input type="submit"class="btn btn-primary" value="Добавить">
+                <input type="submit"class="btn btn-primary"  value="Добавить">
             </div>
         </form>
     </body>
@@ -28,6 +29,7 @@
 
 {% block Messages%}
         {% if context_value %}
+           <form action=".." method="POST"> {% csrf_token %}
              <table class="table-striped">
               <thead>
                 <tr class="d-flex">
@@ -38,10 +40,15 @@
             {% for e in context_value %}
                 <tr class="d-flex">
                   <td class="col-sm-5">  {{ e.text }}</td>
+                  <td class="col-sm-1">  {{ e.userid }}</td>
+                    {% if user.id != e.userid_id %}
+                        <td>  <a class="btn btn-primary" href="/retweet/{{ e.id }}" role="button"><i class="fas fa-arrow-alt-circle-right"></i></a></td>
+                    {% endif %}
                 </tr>
             {% endfor %}
               </tbody>
             </table>
+           </form>
             <p>
             <div class="pagination">
                 <span class="step-links">

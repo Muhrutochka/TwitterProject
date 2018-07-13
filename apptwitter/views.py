@@ -11,7 +11,7 @@ def addMessage(request):
     if request.method == 'POST':
         addMessage = request.POST.get('Textarea1', '')
         if len(addMessage) < 250:
-            i = Messages.objects.create(text=addMessage, userid=user.id)
+            i = Messages.objects.create(text=addMessage, userid_id=user.id)
             i.save()
         else:
             messages.info(request, 'Вы превысили максимальный размер сообщения, он не должен быть больше 250 символов.')
@@ -19,6 +19,13 @@ def addMessage(request):
         pass
     return render(request, 'user/main.html', context)
 
+def retweet(request, id):
+    message = Messages.objects.values_list().filter(id=id).values()
+    user = request.user
+    i = Messages.objects.create(text=message.text, userid_id=user.id, parent=message.id)
+    i.save()
+    context = listing(request)
+    return render(request, 'user/main.html', context)
 
 # Формируем список для вывода на экран
 def listing(request, *args):
@@ -33,6 +40,7 @@ def listing(request, *args):
     messageslist = {
         'context_value': ml,
     }
+    # print(messages)
     return messageslist
 
 

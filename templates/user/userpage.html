@@ -35,6 +35,10 @@
                   <td class="col-sm-8">  {{ e.text }} </td>
                   <td class="col-sm-1"><a href="" name="change" class="changelink">Change</a></td>
                   <td class="col-sm-1"> {{ userid }}</td>
+                  {% if e.parent_id %}
+                  <td class="col-sm-1">  <span class="badge badge-primary">retweet</span> </td>
+                  {% endif %}
+
                 </tr>
             {% endfor %}
               </tbody>
