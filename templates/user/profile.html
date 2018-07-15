@@ -2,6 +2,17 @@
 
 {% block content %}
 <h1>Profile</h1>
-
-<p>Your profile</p>
+    {% if user.is_authenticated %}
+<form action="" method="POST"> {% csrf_token %}
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon1">Nickname</span>
+      </div>
+      <input type="text" class="form-control" value={{ user.first_name }} aria-describedby="button-addon2" name="save">
+      <div class="input-group-append">
+        <input  class="btn btn-primary" type="submit" id="button-addon2" value="Save">
+      </div>
+    </div>
+</form>
+    {% endif %}
 {% endblock %}

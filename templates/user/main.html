@@ -12,7 +12,6 @@
                 </ul>
             </div>
          {% endif %}
-    <body>
         <form action=".." method="POST"> {% csrf_token %}
             <div class="form-group">
                 <label for="exampleFormControlTextarea1">Text</label>
@@ -22,8 +21,6 @@
                 <input type="submit"class="btn btn-primary"  value="Добавить">
             </div>
         </form>
-    </body>
-    </html>
     {% endif %}
 {% endblock %}
 
@@ -40,8 +37,14 @@
             {% for e in context_value %}
                 <tr class="d-flex">
                   <td class="col-sm-5">  {{ e.text }}</td>
-                  <td class="col-sm-1">  {{ e.userid }}</td>
-                    {% if user.id != e.userid_id %}
+                  <td class="col-sm-1">  {{ e.user }}</td>
+                    {% if e.user__first_name != "" %}
+                        <td class="col-sm-1">  <span class="badge badge-primary">{{ e.user__first_name }}</span> </td>
+                    {% else %}
+                        <td class="col-sm-1">  <span class="badge badge-primary">anon</span> </td>
+                    {% endif %}
+
+                    {% if user.id != e.user %}
                         <td>  <a class="btn btn-primary" href="/retweet/{{ e.id }}" role="button"><i class="fas fa-arrow-alt-circle-right"></i></a></td>
                     {% endif %}
                 </tr>
@@ -68,7 +71,5 @@
                 </span>
             </div>
         {% endif %}
-</body>
-</html>
 
 {% endblock %}

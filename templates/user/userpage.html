@@ -2,7 +2,7 @@
 
 {% block content %}
     {% if user.is_authenticated %}
-    {% if user.id == user_id %}
+    {% if user.id == user %}
         <body>
              <form action=".." method="POST"> {% csrf_token %}
                 <div class="form-group">
@@ -34,9 +34,9 @@
                 <tr class="d-flex">
                   <td class="col-sm-8">  {{ e.text }} </td>
                   <td class="col-sm-1"><a href="" name="change" class="changelink">Change</a></td>
-                  <td class="col-sm-1"> {{ userid }}</td>
+                  <td class="col-sm-1"> {{ User.first_name }}</td>
                   {% if e.parent_id %}
-                  <td class="col-sm-1">  <span class="badge badge-primary">retweet</span> </td>
+                    <td class="col-sm-1">  <span class="badge badge-primary">retweet</span> </td>
                   {% endif %}
 
                 </tr>
