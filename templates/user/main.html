@@ -7,7 +7,7 @@
 
                 <ul class="messages">
                     {% for message in messages %}
-                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
                     {% endfor %}
                 </ul>
             </div>
@@ -36,8 +36,10 @@
               <tbody>
             {% for e in context_value %}
                 <tr class="d-flex">
-                  <td class="col-sm-5">  {{ e.text }}</td>
-                  <td class="col-sm-1">  {{ e.user }}</td>
+                  <td class="col-sm-5">
+                    <a class="align-right" href="message/{{ e.id }}"> {{ e.text }} </a>
+                  </td>
+{#                  <td class="col-sm-1">  {{ e.user }}</td>#}
                     {% if e.user__first_name != "" %}
                         <td class="col-sm-1">  <span class="badge badge-primary">{{ e.user__first_name }}</span> </td>
                     {% else %}

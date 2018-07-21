@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+    {% block content %}
+        <div class="jumbotron">
+          <p class="lead">
+                {% for e in context_value %}
+                  <p>{{ e.text }}</p>
+                {% endfor %}
+          </p>
+        </div>
+        <h3>Ответы</h3>
+        <form action="" method="POST"> {% csrf_token %}
+            <div class="form-group">
+                <textarea class="form-control" id="Textarea1" name="Textarea1" rows="3" required></textarea>
+            </div>
+            <div class="form-group">
+                <input type="submit"class="btn btn-primary"  value="Добавить">
+            </div>
+        </form>
+    {% endblock %}
+
+{% block Messages%}
+    {% if list %}
+        <link rel="stylesheet" type="text/css" href="/static/admin/css/base.css" />
+        <link rel="stylesheet" type="text/css" href="/static/admin/css/dashboard.css" />
+            <table class="table-striped">
+                  <tbody>
+                {% for message in list %}
+                    <tr class="d-flex">
+                      <td class="col-sm-8">  {{ message.text }} </td>
+                      <td class="col-sm-1">  <span class="badge badge-primary">{{ message.user__first_name }}</span> </td>
+                    </tr>
+                {% endfor %}
+                  </tbody>
+                </table>
+    {% endif %}
+{% endblock %}

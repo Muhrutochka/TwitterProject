@@ -39,7 +39,7 @@ def listing(request, *args):
         # qs = Messages.objects.get(id=1).user.first_name
         qs = Messages.objects.values('id', 'user_id', 'user__first_name')
         # print(qs)
-        print(messages)
+        # print(messages)
     paginator = Paginator(messages, 4)  # Show 4 items per page
     page = request.GET.get('page')
     ml = paginator.get_page(page)
@@ -85,3 +85,26 @@ def profileEdit(request):
             user.save()
         print(errors)
     return render(request, 'user/profile.html')
+
+
+def message(request, id):
+    message = Messages.objects.values_list().filter(id=id).values()
+    listReplyMessages = Messages.objects.values_list().filter(parent=id).values('user__first_name', 'text')
+    print(message, listReplyMessages)
+    context = {
+        'context_value': message,
+        'list': listReplyMessages,
+        }
+    if request.method == 'POST':
+        replyMessage = request.POST.get('Textarea1', '')
+        if len(replyMessage) < 250:
+            user = User.objects.get(id=request.user.id)
+            parentMesage = Messages.objects.get(id=id)
+            print(replyMessage, user, id, parentMesage)
+            i = Messages.objects.create(text=replyMessage, user=user, reply=1, parent=parentMesage)
+            i.save()
+        else:
+            messages.info(request, 'Вы превысили максимальный размер сообщения, он не должен быть больше 250 символов.')
+    else:
+        pass
+    return render(request, "user/message.html", context)

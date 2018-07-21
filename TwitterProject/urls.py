@@ -4,7 +4,7 @@
 from django.contrib import admin
 from django.urls import path, re_path, include
 from django.views.generic.base import TemplateView
-from apptwitter.views import addMessage, userPage, retweet, profileEdit
+from apptwitter.views import addMessage, userPage, retweet, profileEdit, message
 
 urlpatterns = [
 
@@ -16,4 +16,5 @@ urlpatterns = [
     re_path(r'^accounts/profile/$', TemplateView.as_view(template_name='user/profile.html')),
     re_path(r'^user/(?P<user>\w+)/$', userPage),
     re_path(r'^retweet/(?P<id>\w+)/$', retweet),
+    re_path('^message/(?P<id>\w+)/$', message),
 ]
